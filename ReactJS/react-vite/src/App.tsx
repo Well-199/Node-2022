@@ -1,64 +1,26 @@
-import { useState, useEffect } from "react"
-import { PostForm } from './components/PostForm'
-import { PostItem } from './components/PostItem'
-import { Post } from './types/Post'
-import { api } from './api'
+import { useReducer } from 'react'
+
+type reducerState = {
+  count: number,
+}
+type reducerAction = {
+  type: string,
+}
+
+const initialState = { count: 0 }
+const reducer = (state: reducerState, action: reducerAction) => {
+
+}
 
 const App = () => {
 
-  const [loading, setLoading] = useState(false)
-  const [posts, setPosts] = useState<Post[]>([])
-
-  useEffect(() => {
-    loadPosts()
-  }, [])
-
-  const loadPosts = async () => {
-
-    setLoading(true)
-    let json = await api.getAllPost()
-    setLoading(false)
-    setPosts(json)
-
-  }
-
-  const handleAddPost = async (title: string, body: string) => {
-
-    let json = await api.addNewPost(title, body, 1)
-
-    console.log(json)
-
-    if(json.id){
-      alert('Post adicionado com sucesso')
-    }
-    else{
-      alert('Erro ao enviar dados, tente novamente')
-    }
-    
-  }
+  // reducer armazena uma função e initialState armazena um objeto
+  const [state, dispatch] = useReducer(reducer, initialState)
 
   return (
     <div>
 
-      {loading &&
-        <div>
-          <h1>Carregando...</h1>
-        </div>
-      }
-
-      <PostForm onAdd={handleAddPost} />
-
-      {!loading && 
-      <>
-        <h2>Total de posts: {posts.length}</h2>
-
-        <div>
-          {posts.map((item, index) => 
-            <PostItem data={item} key={index}/>
-          )}
-        </div>
-      </>
-      }
+      
     </div>
   )
 }

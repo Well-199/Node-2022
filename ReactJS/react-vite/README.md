@@ -1,1 +1,1 @@
-#### Introdução aos Reducers 1
+#### Introdução aos Reducers 1 = 7:49
